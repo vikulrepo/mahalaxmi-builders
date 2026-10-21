@@ -1,0 +1,300 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahalaxmi Builders | Building Your Dreams</title>
+
+   
+	 <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #222;
+        }
+
+        header {
+            background-color: #17324d;
+            color: white;
+            padding: 22px 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 30px;
+        }
+
+        header p {
+            margin-bottom: 0;
+            color: #f3c969;
+        }
+
+        nav {
+            background-color: #102438;
+            padding: 15px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        .hero {
+            padding: 90px 20px;
+            text-align: center;
+            background-color: #e6edf3;
+        }
+
+        .hero h2 {
+            font-size: 38px;
+            color: #17324d;
+        }
+
+        .hero p {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .button {
+            display: inline-block;
+            background-color: #d6a63c;
+            color: #172b3d;
+            padding: 14px 24px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        .projects {
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        footer {
+            background-color: #17324d;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+		
+		
+		.service-container {
+		    display: flex;
+		    flex-wrap: wrap;
+		    justify-content: center;
+		    gap: 20px;
+		    max-width: 1100px;
+		    margin: 30px auto;
+		}
+
+		.service-card {
+		    background-color: white;
+		    width: 220px;
+		    padding: 25px;
+		    border-radius: 10px;
+		    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10);
+		    border-top: 4px solid #d6a63c;
+		    transition: transform 0.3s ease;
+		}
+
+		.service-card:hover {
+		    transform: translateY(-5px);
+		}
+
+		.service-card h3 {
+		    color: #17324d;
+		}
+
+		.service-card p {
+		    color: #555;
+		    line-height: 1.6;
+		}
+
+		
+		#enquiryForm {
+		    max-width: 500px;
+		    margin: 30px auto;
+		    display: flex;
+		    flex-direction: column;
+		    gap: 15px;
+		}
+
+		#enquiryForm input,
+		#enquiryForm textarea {
+		    padding: 14px;
+		    font-size: 16px;
+		    border: 1px solid #ccc;
+		    border-radius: 6px;
+		    font-family: Arial, sans-serif;
+		}
+
+		#enquiryForm input:focus,
+		#enquiryForm textarea:focus {
+		    outline: none;
+		    border-color: #17324d;
+		}
+
+		#enquiryForm button {
+		    border: none;
+		    cursor: pointer;
+		    font-size: 16px;
+		}
+
+		
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>MAHALAXMI BUILDERS</h1>
+        <p>Building Trust. Building Futures.</p>
+    </header>
+
+	<nav>
+	    <a href="#home">Home</a>
+	    <a href="#about">About Us</a>
+	    <a href="#services">Services</a>
+	    <a href="#projects">Our Projects</a>
+	    <a href="#contact">Contact</a>
+	</nav>
+
+    <section class="hero" id="home">
+        <h2>Building Your Dreams Into Reality</h2>
+        <p>
+            Welcome to Mahalaxmi Builders.
+            We believe in quality construction, trust,
+            and creating spaces for a better future.
+        </p>
+        <a href="#projects" class="button">Explore Our Projects</a>
+    </section>
+
+    <section class="projects" id="projects">
+        <h2>Our Projects</h2>
+        <p>Discover our upcoming and completed construction projects.</p>
+    </section>
+	
+	
+	<section class="projects" id="services">
+	    <h2>Our Services</h2>
+	    <p>Quality construction and property solutions.</p>
+
+	    <div class="service-container">
+
+	        <div class="service-card">
+	            <h3>Residential Construction</h3>
+	            <p>Building comfortable homes with a focus on quality and reliability.</p>
+	        </div>
+
+	        <div class="service-card">
+	            <h3>Commercial Construction</h3>
+	            <p>Construction solutions for offices, shops, and commercial spaces.</p>
+	        </div>
+
+	        <div class="service-card">
+	            <h3>Property Development</h3>
+	            <p>Developing spaces designed around practical property needs.</p>
+	        </div>
+
+	        <div class="service-card">
+	            <h3>Planning & Consultation</h3>
+	            <p>Helping customers understand their construction requirements.</p>
+	        </div>
+
+	    </div>
+	</section>
+
+
+    <section class="projects" id="about">
+        <h2>About Mahalaxmi Builders</h2>
+        <p>We are committed to building quality spaces with care and reliability.</p>
+    </section>
+
+	
+	<section class="projects" id="contact">
+	    <h2>Contact Us</h2>
+	    <p>Interested in a property? Send us an enquiry.</p>
+
+	    <form id="enquiryForm">
+
+	        <input
+	            type="text"
+	            id="customerName"
+	            placeholder="Your Full Name"
+	            required>
+
+	        <input
+	            type="tel"
+	            id="customerPhone"
+	            placeholder="Your Phone Number"
+	            required>
+
+	        <input
+	            type="email"
+	            id="customerEmail"
+	            placeholder="Your Email Address">
+
+	        <textarea
+	            id="customerMessage"
+	            placeholder="Tell us what property you are looking for"
+	            rows="5"
+	            required></textarea>
+
+	        <button type="submit" class="button">
+	            Submit Enquiry
+	        </button>
+
+	    </form>
+	</section>
+
+
+    <footer>
+        <p>&copy; 2026 Mahalaxmi Builders. All rights reserved.</p>
+    </footer>
+	
+	<script>
+	    const enquiryForm = document.getElementById("enquiryForm");
+
+	    enquiryForm.addEventListener("submit", async function(event) {
+	        event.preventDefault();
+
+	        const enquiry = {
+	            name: document.getElementById("customerName").value,
+	            phone: document.getElementById("customerPhone").value,
+	            email: document.getElementById("customerEmail").value,
+	            message: document.getElementById("customerMessage").value
+	        };
+
+	        try {
+	            const response = await fetch("/api/enquiries", {
+	                method: "POST",
+	                headers: {
+	                    "Content-Type": "application/json"
+	                },
+	                body: JSON.stringify(enquiry)
+	            });
+
+	            if (!response.ok) {
+	                throw new Error("Enquiry submission failed");
+	            }
+
+	            alert("Thank you! Your enquiry has been submitted successfully.");
+	            enquiryForm.reset();
+
+	        } catch (error) {
+	            alert("Sorry, we could not submit your enquiry. Please try again.");
+	            console.error(error);
+	        }
+	    });
+	</script>
+	</body>
+	</html>
+
+</body>
+</html>
