@@ -1,300 +1,374 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mahalaxmi Builders | Building Your Dreams</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { margin: 0; font-family: Arial, sans-serif; background: #f5f5f5; color: #222; }
+        header { background: #17324d; color: white; padding: 22px 40px; text-align: center; }
+        header h1 { margin: 0; font-size: 30px; }
+        header p { margin-bottom: 0; color: #f3c969; }
+        nav { background: #102438; padding: 15px; text-align: center; }
+        nav a { color: white; text-decoration: none; margin: 0 15px; display: inline-block; }
+        .hero { padding: 90px 20px; text-align: center; background: #e6edf3; }
+        .hero h2 { font-size: 38px; color: #17324d; }
+        .hero p { font-size: 18px; line-height: 1.6; }
+        .button { display: inline-block; background: #d6a63c; color: #172b3d; padding: 14px 24px; text-decoration: none; border-radius: 5px; font-weight: bold; margin-top: 15px; border: 0; cursor: pointer; }
+        .projects { padding: 40px 20px; text-align: center; }
+        footer { background: #17324d; color: white; text-align: center; padding: 20px; }
+        .service-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; max-width: 1100px; margin: 30px auto; }
+        .service-card { background: white; width: 220px; padding: 25px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,.1); border-top: 4px solid #d6a63c; transition: transform .3s ease; }
+        .service-card:hover { transform: translateY(-5px); }
+        .service-card h3 { color: #17324d; }
+        .service-card p { color: #555; line-height: 1.6; }
+        #enquiryForm { max-width: 500px; margin: 30px auto; display: flex; flex-direction: column; gap: 15px; }
+        #enquiryForm input, #enquiryForm textarea { padding: 14px; font-size: 16px; border: 1px solid #ccc; border-radius: 6px; font-family: Arial, sans-serif; }
+        #enquiryForm input:focus, #enquiryForm textarea:focus { outline: none; border-color: #17324d; }
+        #enquiryForm button { font-size: 16px; }
 
-   
-	 <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            color: #222;
+        /* Chatbot */
+        #chatbot { position: fixed; right: 22px; bottom: 22px; z-index: 9999; font-family: Arial, sans-serif; }
+        #chatToggle { background: #17365d; color: white; border: none; border-radius: 28px; padding: 15px 22px; font-size: 15px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 14px #0003; }
+        #chatWindow { width: 340px; height: 440px; max-height: 75vh; background: white; border: 1px solid #ddd; border-radius: 14px; box-shadow: 0 8px 30px #0003; overflow: hidden; margin-bottom: 12px; display: flex; flex-direction: column; }
+        #chatWindow[hidden] { display: none; }
+        #chatHeader { background: #17365d; color: white; padding: 16px; display: flex; justify-content: space-between; align-items: center; }
+        .chat-subtitle { font-size: 12px; margin-top: 5px; opacity: .85; }
+        #chatClose { background: transparent; color: white; border: none; font-size: 26px; cursor: pointer; }
+        #chatMessages { flex: 1; padding: 14px; overflow-y: auto; background: #f5f7fa; }
+        .bot-message, .user-message { padding: 11px 13px; border-radius: 12px; margin-bottom: 10px; max-width: 88%; font-size: 14px; line-height: 1.5; overflow-wrap: anywhere; white-space: pre-wrap; }
+        .bot-message { background: white; border: 1px solid #e5e7eb; color: #222; }
+        .user-message { background: #dceafe; color: #17365d; margin-left: auto; }
+        #chatForm { display: flex; gap: 8px; padding: 10px; border-top: 1px solid #ddd; }
+        #chatInput { min-width: 0; flex: 1; padding: 11px; border: 1px solid #ccc; border-radius: 8px; }
+        #chatForm button { background: #17365d; color: white; border: none; border-radius: 8px; padding: 0 14px; cursor: pointer; }
+        @media (max-width: 480px) {
+            nav a { margin: 7px; }
+            .hero h2 { font-size: 30px; }
+            #chatbot { right: 12px; bottom: 12px; }
+            #chatWindow { width: calc(100vw - 24px); height: min(440px, 75vh); }
         }
-
-        header {
-            background-color: #17324d;
-            color: white;
-            padding: 22px 40px;
-            text-align: center;
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 30px;
-        }
-
-        header p {
-            margin-bottom: 0;
-            color: #f3c969;
-        }
-
-        nav {
-            background-color: #102438;
-            padding: 15px;
-            text-align: center;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 15px;
-        }
-
-        .hero {
-            padding: 90px 20px;
-            text-align: center;
-            background-color: #e6edf3;
-        }
-
-        .hero h2 {
-            font-size: 38px;
-            color: #17324d;
-        }
-
-        .hero p {
-            font-size: 18px;
-            line-height: 1.6;
-        }
-
-        .button {
-            display: inline-block;
-            background-color: #d6a63c;
-            color: #172b3d;
-            padding: 14px 24px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            margin-top: 15px;
-        }
-
-        .projects {
-            padding: 40px 20px;
-            text-align: center;
-        }
-
-        footer {
-            background-color: #17324d;
-            color: white;
-            text-align: center;
-            padding: 20px;
-        }
-		
-		
-		.service-container {
-		    display: flex;
-		    flex-wrap: wrap;
-		    justify-content: center;
-		    gap: 20px;
-		    max-width: 1100px;
-		    margin: 30px auto;
-		}
-
-		.service-card {
-		    background-color: white;
-		    width: 220px;
-		    padding: 25px;
-		    border-radius: 10px;
-		    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10);
-		    border-top: 4px solid #d6a63c;
-		    transition: transform 0.3s ease;
-		}
-
-		.service-card:hover {
-		    transform: translateY(-5px);
-		}
-
-		.service-card h3 {
-		    color: #17324d;
-		}
-
-		.service-card p {
-		    color: #555;
-		    line-height: 1.6;
-		}
-
-		
-		#enquiryForm {
-		    max-width: 500px;
-		    margin: 30px auto;
-		    display: flex;
-		    flex-direction: column;
-		    gap: 15px;
-		}
-
-		#enquiryForm input,
-		#enquiryForm textarea {
-		    padding: 14px;
-		    font-size: 16px;
-		    border: 1px solid #ccc;
-		    border-radius: 6px;
-		    font-family: Arial, sans-serif;
-		}
-
-		#enquiryForm input:focus,
-		#enquiryForm textarea:focus {
-		    outline: none;
-		    border-color: #17324d;
-		}
-
-		#enquiryForm button {
-		    border: none;
-		    cursor: pointer;
-		    font-size: 16px;
-		}
-
-		
     </style>
 </head>
-
 <body>
-
     <header>
         <h1>MAHALAXMI BUILDERS</h1>
         <p>Building Trust. Building Futures.</p>
     </header>
 
-	<nav>
-	    <a href="#home">Home</a>
-	    <a href="#about">About Us</a>
-	    <a href="#services">Services</a>
-	    <a href="#projects">Our Projects</a>
-	    <a href="#contact">Contact</a>
-	</nav>
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#about">About Us</a>
+        <a href="#services">Services</a>
+        <a href="#projects">Our Projects</a>
+        <a href="#contact">Contact</a>
+    </nav>
 
     <section class="hero" id="home">
         <h2>Building Your Dreams Into Reality</h2>
-        <p>
-            Welcome to Mahalaxmi Builders.
-            We believe in quality construction, trust,
-            and creating spaces for a better future.
-        </p>
+        <p>Welcome to Mahalaxmi Builders.<br>We believe in trust, reliable property guidance, and helping customers find suitable spaces.</p>
         <a href="#projects" class="button">Explore Our Projects</a>
     </section>
 
     <section class="projects" id="projects">
-        <h2>Our Projects</h2>
-        <p>Discover our upcoming and completed construction projects.</p>
+        <h2>Our Properties</h2>
+        <p>Contact us to ask about current property availability in Ghaziabad.</p>
     </section>
-	
-	
-	<section class="projects" id="services">
-	    <h2>Our Services</h2>
-	    <p>Quality construction and property solutions.</p>
 
-	    <div class="service-container">
-
-	        <div class="service-card">
-	            <h3>Residential Construction</h3>
-	            <p>Building comfortable homes with a focus on quality and reliability.</p>
-	        </div>
-
-	        <div class="service-card">
-	            <h3>Commercial Construction</h3>
-	            <p>Construction solutions for offices, shops, and commercial spaces.</p>
-	        </div>
-
-	        <div class="service-card">
-	            <h3>Property Development</h3>
-	            <p>Developing spaces designed around practical property needs.</p>
-	        </div>
-
-	        <div class="service-card">
-	            <h3>Planning & Consultation</h3>
-	            <p>Helping customers understand their construction requirements.</p>
-	        </div>
-
-	    </div>
-	</section>
-
+    <section class="projects" id="services">
+        <h2>Our Services</h2>
+        <p>Property solutions for buyers, sellers and tenants.</p>
+        <div class="service-container">
+            <div class="service-card"><h3>Buy Property</h3><p>Tell us your budget, preferred location and property type.</p></div>
+            <div class="service-card"><h3>Sell Property</h3><p>Share your property details and expected price for follow-up.</p></div>
+            <div class="service-card"><h3>Rental Assistance</h3><p>Enquire about rental requirements and suitable options.</p></div>
+            <div class="service-card"><h3>Site Visit</h3><p>Ask about arranging a visit to a property of interest.</p></div>
+        </div>
+    </section>
 
     <section class="projects" id="about">
         <h2>About Mahalaxmi Builders</h2>
-        <p>We are committed to building quality spaces with care and reliability.</p>
+        <p>Mahalaxmi Builders is a real estate agency serving customers interested in property in Ghaziabad.</p>
     </section>
 
-	
-	<section class="projects" id="contact">
-	    <h2>Contact Us</h2>
-	    <p>Interested in a property? Send us an enquiry.</p>
+    <section class="projects" id="contact">
+        <h2>Contact Us</h2>
+        <p>Interested in a property? Send us an enquiry.</p>
+        <form id="enquiryForm">
+            <input type="text" id="customerName" placeholder="Your Full Name" required>
+            <input type="tel" id="customerPhone" placeholder="Your Phone Number" required>
+            <input type="email" id="customerEmail" placeholder="Your Email Address">
+            <textarea id="customerMessage" placeholder="Tell us what property you are looking for" rows="5" required></textarea>
+            <button type="submit" class="button">Submit Enquiry</button>
+        </form>
+    </section>
 
-	    <form id="enquiryForm">
+    <footer><p>&copy; 2026 Mahalaxmi Builders. All rights reserved.</p></footer>
 
-	        <input
-	            type="text"
-	            id="customerName"
-	            placeholder="Your Full Name"
-	            required>
+    <!-- Chatbot UI -->
+    <div id="chatbot">
+        <button id="chatToggle" type="button" aria-label="Open chat">💬 Chat with us</button>
+        <section id="chatWindow" aria-label="Mahalaxmi chatbot" hidden>
+            <header id="chatHeader">
+                <div><strong>Mahalaxmi Builders</strong><div class="chat-subtitle">Property Assistant · Ghaziabad</div></div>
+                <button id="chatClose" type="button" aria-label="Close chat">×</button>
+            </header>
+            <div id="chatMessages" aria-live="polite">
+                <div class="bot-message">Namaste! 👋 Welcome to Mahalaxmi Builders. Ghaziabad mein property kharidne, bechne ya rent par lene ke baare mein kya jaanna chahenge?</div>
+            </div>
+            <form id="chatForm">
+                <input id="chatInput" type="text" placeholder="Apna question likhein..." autocomplete="off" aria-label="Your question" required>
+                <button type="submit">Send</button>
+            </form>
+        </section>
+    </div>
 
-	        <input
-	            type="tel"
-	            id="customerPhone"
-	            placeholder="Your Phone Number"
-	            required>
+    <script>
+    // Website enquiry form: sends the enquiry to the existing Spring Boot API.
+    const enquiryForm = document.getElementById("enquiryForm");
+    enquiryForm.addEventListener("submit", async function(event) {
+        event.preventDefault();
+        const enquiry = {
+            name: document.getElementById("customerName").value.trim(),
+            phone: document.getElementById("customerPhone").value.trim(),
+            email: document.getElementById("customerEmail").value.trim(),
+            message: document.getElementById("customerMessage").value.trim()
+        };
 
-	        <input
-	            type="email"
-	            id="customerEmail"
-	            placeholder="Your Email Address">
+        try {
+            const response = await fetch("/api/enquiries", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(enquiry)
+            });
+            if (!response.ok) throw new Error("Enquiry submission failed");
+            alert("Thank you! Your enquiry has been submitted successfully.");
+            enquiryForm.reset();
+        } catch (error) {
+            alert("Sorry, we could not submit your enquiry. Please try again.");
+            console.error(error);
+        }
+    });
 
-	        <textarea
-	            id="customerMessage"
-	            placeholder="Tell us what property you are looking for"
-	            rows="5"
-	            required></textarea>
+    // Chatbot UI controls.
+    const chatToggle = document.getElementById("chatToggle");
+    const chatWindow = document.getElementById("chatWindow");
+    const chatClose = document.getElementById("chatClose");
+    const chatForm = document.getElementById("chatForm");
+    const chatInput = document.getElementById("chatInput");
+    const chatMessages = document.getElementById("chatMessages");
 
-	        <button type="submit" class="button">
-	            Submit Enquiry
-	        </button>
+    chatToggle.addEventListener("click", () => {
+        chatWindow.hidden = false;
+        chatToggle.hidden = true;
+        chatInput.focus();
+    });
 
-	    </form>
-	</section>
+    chatClose.addEventListener("click", () => {
+        chatWindow.hidden = true;
+        chatToggle.hidden = false;
+    });
 
+    function addChatMessage(message, className) {
+        const messageElement = document.createElement("div");
+        messageElement.className = className;
+        messageElement.textContent = message;
+        chatMessages.appendChild(messageElement);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
 
-    <footer>
-        <p>&copy; 2026 Mahalaxmi Builders. All rights reserved.</p>
-    </footer>
-	
-	<script>
-	    const enquiryForm = document.getElementById("enquiryForm");
+    // Starter FAQ set. Business-specific prices, listings and contact details
+    // are intentionally not invented; add verified details when available.
+    const faqs = [
+        { patterns: ["hello", "hi", "hey", "namaste", "hii", "good morning", "good evening"], answer: "Namaste! Welcome to Mahalaxmi Builders. Ghaziabad mein property kharidne, bechne ya rent par lene ke liye main aapki help kar sakta hoon." },
+        { patterns: ["what do you do", "aap kya karte ho", "services", "property dealer", "real estate agency"], answer: "Mahalaxmi Builders ek real estate agency hai. Property buying, selling aur rental enquiries ke liye aap apni requirement share kar sakte hain." },
+        { patterns: ["property available", "properties available", "kya property hai", "available flats", "available property"], answer: "Available properties ki latest list confirm karne ke liye apna preferred area, budget aur property type batayein." },
+        { patterns: ["2 bhk price", "2bhk price", "2 bhk rate", "2 bhk ki price", "2 bhk ka rate", "2 bedroom price"], answer: "2 BHK ki confirmed price location, size aur availability par depend karti hai. Apna budget aur preferred area batayein, taaki requirement note ki ja sake." },
+        { patterns: ["3 bhk price", "3bhk price", "3 bhk rate", "3 bhk ka rate", "3 bedroom price"], answer: "3 BHK ki confirmed price location, size aur availability par depend karti hai. Apna budget aur preferred area batayein." },
+        { patterns: ["1 bhk price", "1bhk price", "1 bhk rate", "1 bedroom price"], answer: "1 BHK ki confirmed price location, size aur availability par depend karti hai. Apna budget aur preferred area batayein." },
+        { patterns: ["flat price", "flat ka price", "flat rate", "flat kitne ka hai", "apartment price"], answer: "Flat ki price location, size aur property type par depend karti hai. Aap 1 BHK, 2 BHK ya 3 BHK mein se kya dekh rahe hain?" },
+        { patterns: ["plot price", "plot ka rate", "plot kitne ka hai", "land price"], answer: "Plot ki price location aur area par depend karti hai. Ghaziabad mein kis locality aur kitne square yards ka plot chahiye?" },
+        { patterns: ["property location", "address", "office kahan hai", "location kya hai", "office address"], answer: "Hamare chatbot mein verified office address abhi configure nahi hai. Kripya team se exact location confirm karein." },
+        { patterns: ["ghaziabad property", "property in ghaziabad", "ghaziabad mein property", "property near ghaziabad"], answer: "Aap Ghaziabad mein kis area mein property dekh rahe hain? Apna budget aur property type batayein." },
+        { patterns: ["buy property", "property kharidni", "ghar kharidna", "flat lena", "buy a flat"], answer: "Zaroor! Aapka approximate budget, preferred location aur property type kya hai?" },
+        { patterns: ["sell property", "property bechni", "ghar bechna", "flat sell", "sell my house"], answer: "Property sell karne ke liye property ka area, type, size aur expected price batayein. Team se valuation aur selling process confirm karein." },
+        { patterns: ["rent", "property on rent", "ghar kiraye par", "flat rent", "rental property"], answer: "Aap rent par property dhoondh rahe hain ya apni property rent par dena chahte hain?" },
+        { patterns: ["site visit", "property dekhni", "visit book", "site dekhna", "visit schedule"], answer: "Site visit ke liye apna naam, contact number, preferred area aur convenient date batayein. Visit availability team se confirm hogi." },
+        { patterns: ["home loan", "loan facility", "bank loan", "loan milega"], answer: "Home loan eligibility aur financing options bank aur property documents par depend karte hain. Loan approval bank se confirm hoga." },
+        { patterns: ["booking amount", "token money", "advance kitna", "booking kaise"], answer: "Booking amount property aur seller ki terms par depend karta hai. Payment se pehle amount aur terms written mein confirm karein." },
+        { patterns: ["payment plan", "installment", "emi", "payment kaise karen"], answer: "Payment plan property aur seller ke terms par depend karta hai. Exact installment schedule written mein confirm karein." },
+        { patterns: ["registration charges", "registry charges", "registry ka kharcha", "stamp duty"], answer: "Registration aur stamp duty charges transaction details aur applicable rules par depend karte hain. Latest amount relevant authority ya legal professional se verify karein." },
+        { patterns: ["rera", "rera approved", "rera number", "rera registration"], answer: "RERA status property-specific hota hai. Project details verify kiye bina approval ka claim nahi karenge. Relevant registration details verify karein." },
+        { patterns: ["property documents", "documents required", "kaun se papers", "property ke kagaz"], answer: "Required documents transaction ke type par depend karte hain. Ownership, title records aur applicable approvals ko qualified legal professional se verify karwayein." },
+        { patterns: ["possession date", "possession kab", "ghar kab milega"], answer: "Possession date specific property aur agreement par depend karti hai. Exact date seller se written mein confirm karein." },
+        { patterns: ["parking", "car parking", "parking available"], answer: "Parking availability property-specific hai. Parking inclusion aur additional charges confirm karein." },
+        { patterns: ["lift", "elevator", "lift available"], answer: "Lift availability building-specific hai. Interested property ki facilities verify karni hongi." },
+        { patterns: ["security", "cctv", "guard", "security facility"], answer: "Security facilities property ke hisaab se alag ho sakti hain. Specific property ke arrangements team se confirm karein." },
+        { patterns: ["water supply", "pani", "electricity", "bijli connection"], answer: "Water aur electricity arrangements property ke hisaab se vary karte hain. Connection status aur additional charges confirm karein." },
+        { patterns: ["maintenance charges", "maintenance fee", "maintenance kitni"], answer: "Maintenance charges property aur society ke rules par depend karte hain. Exact monthly charges written mein confirm karein." },
+        { patterns: ["nearby metro", "metro station", "nearest metro", "metro paas mein"], answer: "Nearest metro station property ki exact location par depend karega. Preferred locality ya property address share karein." },
+        { patterns: ["school nearby", "nearby school", "school paas mein"], answer: "Nearby schools ki information ke liye property ki exact locality chahiye. Ghaziabad ka preferred area batayein." },
+        { patterns: ["hospital nearby", "nearby hospital", "hospital paas mein"], answer: "Nearby hospitals ki information exact location par depend karti hai. Preferred locality batayein." },
+        { patterns: ["contact number", "phone number", "mobile number", "contact details", "call you"], answer: "Business ka verified phone number abhi chatbot mein configure nahi hai. Website ke enquiry form se apni contact details submit kar sakte hain." },
+        { patterns: ["office timing", "opening time", "office kab khulta", "working hours"], answer: "Office timings abhi chatbot mein confirm nahi hain. Visit se pehle team se timing confirm karein." },
+        { patterns: ["thank you", "thanks", "shukriya", "dhanyawad"], answer: "Aapka swagat hai! Mahalaxmi Builders se contact karne ke liye dhanyawad." },
+        { patterns: ["bye", "goodbye", "alvida", "see you"], answer: "Dhanyawad! Property se related kisi bhi enquiry ke liye aap dobara chat kar sakte hain." },
+        { patterns: ["budget", "my budget", "budget kitna", "affordable property"], answer: "Aapka approximate budget kya hai? Jaise ₹20–30 lakh, ₹30–50 lakh, ya koi aur range." },
+        { patterns: ["which area", "kaun sa area", "locality", "preferred location"], answer: "Ghaziabad mein apni preferred locality batayein, jaise Indirapuram, Raj Nagar Extension ya koi doosra area. Availability confirm karni hogi." },
+        { patterns: ["indrapuram", "indirapuram property"], answer: "Indirapuram ke liye aapka budget aur property type kya hai? Current availability team se verify karni hogi." },
+        { patterns: ["raj nagar extension", "raj nagar property"], answer: "Raj Nagar Extension ke liye aapka budget aur property type batayein. Current listings confirm karni hongi." },
+        { patterns: ["vaishali property", "property in vaishali"], answer: "Vaishali mein kis type ki property aur budget chahiye? Current availability verify karni hogi." },
+        { patterns: ["vasundhara property", "property in vasundhara"], answer: "Vasundhara mein kis type ki property aur budget chahiye? Current availability verify karni hogi." },
+        { patterns: ["sahibabad property", "property in sahibabad"], answer: "Sahibabad mein kis type ki property aur budget chahiye? Current availability verify karni hogi." },
+        { patterns: ["crossings republik", "crossings republic property"], answer: "Crossings Republik mein kis type ki property aur budget chahiye? Current availability verify karni hogi." },
+        { patterns: ["ready to move", "ready possession", "turant possession"], answer: "Ready-to-move availability specific listing par depend karti hai. Preferred area aur budget batayein." },
+        { patterns: ["under construction", "construction chal raha", "upcoming project"], answer: "Under-construction ya upcoming options ki availability verify karni hogi. Preferred area aur budget batayein." },
+        { patterns: ["new property", "new flat", "new launch"], answer: "New property listings ke liye preferred area, budget aur property type batayein. Latest availability confirm karni hogi." },
+        { patterns: ["resale property", "second hand flat", "old property"], answer: "Resale property ke liye area, budget aur property type batayein. Ownership aur title documents verify karna important hai." },
+        { patterns: ["commercial property", "shop for sale", "office space"], answer: "Commercial property ke liye preferred area, budget aur requirement (shop, office ya other space) batayein." },
+        { patterns: ["residential property", "residential flat", "family home"], answer: "Residential property ke liye budget, preferred locality aur family ki requirements batayein." },
+        { patterns: ["independent house", "kothi", "villa"], answer: "Independent house ya villa ke liye preferred area, budget aur plot/built-up size batayein." },
+        { patterns: ["builder floor", "floor for sale", "independent floor"], answer: "Builder floor ke liye locality, budget aur required floor/size batayein. Availability confirm karni hogi." },
+        { patterns: ["furnished", "fully furnished", "furniture included"], answer: "Furnished property availability specific listing par depend karti hai. Aapko furnished, semi-furnished ya unfurnished option chahiye?" },
+        { patterns: ["unfurnished", "without furniture"], answer: "Unfurnished property ke liye preferred area, budget aur property type batayein." },
+        { patterns: ["family allowed", "family ke liye", "family rental"], answer: "Rental property ki terms owner aur listing par depend karti hain. Apni preferred locality, budget aur move-in date batayein." },
+        { patterns: ["bachelor allowed", "bachelor rental", "students allowed"], answer: "Bachelor rental policies property owner aur society ke rules par depend karti hain. Specific listing ki terms confirm karni hongi." },
+        { patterns: ["security deposit", "deposit kitna", "rental deposit"], answer: "Security deposit owner aur rental agreement ke terms par depend karta hai. Agreement sign karne se pehle written confirmation lein." },
+        { patterns: ["rent agreement", "rental agreement", "lease agreement"], answer: "Rent agreement mein rent, deposit, duration, notice period aur responsibilities clear honi chahiye. Local legal requirements verify karein." },
+        { patterns: ["notice period", "rent cancel", "lease cancel"], answer: "Notice period aur cancellation terms signed agreement par depend karte hain. Apna agreement check karein." },
+        { patterns: ["negotiation", "price negotiate", "discount milega"], answer: "Negotiation seller aur property terms par depend karti hai. Apna offer aur budget share karein; final terms seller confirm karega." },
+        { patterns: ["brokerage", "broker charge", "commission kitna"], answer: "Brokerage/commission terms transaction aur agreement par depend karte hain. Kisi bhi commitment se pehle fee written mein confirm karein." },
+        { patterns: ["site visit free", "visit charges", "site visit charge"], answer: "Site visit ke charges ya conditions specific property aur arrangement par depend karte hain. Booking se pehle confirm karein." },
+        { patterns: ["property photos", "photos bhejo", "pictures", "images"], answer: "Property photos specific listing se milengi. Preferred area, budget aur property type batayein taaki relevant listing identify ki ja sake." },
+        { patterns: ["floor plan", "layout plan", "map of flat"], answer: "Floor plan specific property par depend karta hai. Property/listing details verify hone par relevant plan maanga ja sakta hai." },
+        { patterns: ["carpet area", "built up area", "super built up"], answer: "Carpet area, built-up area aur super built-up area alag measurements hain. Specific property ka verified area document check karein." },
+        { patterns: ["square feet", "sq ft", "area kitna"], answer: "Aap kis property ka area pooch rahe hain? Property type ya listing share karein; exact area verify karna hoga." },
+        { patterns: ["facing", "east facing", "vastu"], answer: "Facing aur Vastu details specific property par depend karti hain. Apni preference batayein aur listing details verify karein." },
+        { patterns: ["floor number", "which floor", "kaun se floor"], answer: "Available floors building aur listing par depend karte hain. Preferred floor aur property type batayein." },
+        { patterns: ["corner flat", "corner property"], answer: "Corner property availability specific listing par depend karti hai. Preferred locality aur budget batayein." },
+        { patterns: ["balcony", "balcony available"], answer: "Balcony availability aur size specific property ke layout par depend karte hain. Floor plan verify karein." },
+        { patterns: ["park facing", "park view", "green area"], answer: "Park-facing options ki availability listing par depend karti hai. Preferred area aur budget batayein." },
+        { patterns: ["gated society", "gated community", "society flat"], answer: "Gated society options ke liye locality, budget aur required amenities batayein. Current options verify karne honge." },
+        { patterns: ["pet allowed", "pets allowed", "dog allowed"], answer: "Pets ki policy owner aur society ke rules par depend karti hai. Specific property ki terms confirm karein." },
+        { patterns: ["power backup", "inverter", "electricity backup"], answer: "Power backup availability specific building/listing par depend karti hai. Details confirm karein." },
+        { patterns: ["water tank", "water facility", "pani ki facility"], answer: "Water supply aur storage arrangements property-specific hain. Site visit ke dauran verify karein." },
+        { patterns: ["seepage", "leakage", "dampness"], answer: "Property dekhte waqt seepage/leakage carefully inspect karein aur zaroorat ho toh qualified inspector se check karwayein." },
+        { patterns: ["property inspection", "inspection before buying", "ghar check"], answer: "Purchase se pehle property inspection aur legal document verification karwana useful hai. Independent qualified professional ki help lein." },
+        { patterns: ["ownership proof", "title clear", "clear title"], answer: "Ownership/title status legal documents se verify karna zaroori hai. Qualified property lawyer se independent verification karwayein." },
+        { patterns: ["mutation", "property transfer", "naam transfer"], answer: "Mutation aur transfer process property type aur local authority par depend karta hai. Relevant authority ya legal professional se guidance lein." },
+        { patterns: ["registry online", "online registration"], answer: "Registration process location aur transaction par depend karta hai. Applicable state registration department ki current instructions check karein." },
+        { patterns: ["gst", "gst on property"], answer: "GST applicability property type aur transaction details par depend karti hai. Specific transaction ke liye qualified tax professional se confirm karein." },
+        { patterns: ["tax benefit", "tax deduction", "income tax home loan"], answer: "Tax benefits current tax rules aur personal eligibility par depend karte hain. Qualified tax advisor se apni situation verify karein." },
+        { patterns: ["investment property", "invest in real estate", "property investment"], answer: "Investment se pehle location, liquidity, title, total costs aur risks evaluate karein. Returns guaranteed nahi hote." },
+        { patterns: ["property appreciation", "price increase", "return on investment"], answer: "Future property prices ya returns guarantee nahi kiye ja sakte. Local market research aur independent financial advice lein." },
+        { patterns: ["first time buyer", "first home", "pehla ghar"], answer: "First-time buyer ke liye budget, loan eligibility, location, title verification aur total transaction costs se shuru karna useful hai." },
+        { patterns: ["nri property", "nri buyer", "buy property from abroad"], answer: "NRI property purchase ke rules nationality/status aur transaction par depend karte hain. Qualified legal aur tax advisor se guidance lein." },
+        { patterns: ["women buyer", "female ownership", "woman property buyer"], answer: "Ownership, loan aur stamp duty rules location aur current regulations par depend karte hain. Applicable benefits verify karein." },
+        { patterns: ["complaint", "complain", "issue with property"], answer: "Apni concern, property details aur preferred contact method enquiry form mein share karein. Legal dispute ho toh qualified professional se advice lein." },
+        { patterns: ["callback", "call me", "please call"], answer: "Callback request ke liye website ke enquiry form mein apna naam, phone number aur requirement submit karein." },
+        { patterns: ["email address", "email id", "email contact"], answer: "Business ka verified email address abhi chatbot mein configure nahi hai. Website ke enquiry form ka use karein." },
+        { patterns: ["whatsapp", "whatsapp number", "whatsapp contact"], answer: "Verified WhatsApp number abhi chatbot mein configure nahi hai. Number confirm hone ke baad yahan add kiya ja sakta hai." },
+        { patterns: ["human agent", "talk to person", "real person", "customer support"], answer: "Aap apna naam, contact number aur question website ke enquiry form mein submit karein, taaki team follow-up kar sake." },
+        { patterns: ["how long reply", "response time", "kab reply milega"], answer: "Response time abhi chatbot mein defined nahi hai. Apni contact details enquiry form mein share karein." },
+        { patterns: ["privacy", "my data", "personal details safe"], answer: "Enquiry form mein sirf zaroori contact details share karein. Sensitive financial details ya passwords chat mein kabhi share na karein." },
+        { patterns: ["website not working", "chat not working", "technical issue"], answer: "Agar website feature kaam nahi kar raha, page refresh karein aur issue enquiry form ke message mein describe karein." },
+        { patterns: ["can you help", "help me", "madad chahiye"], answer: "Zaroor. Aap buying, selling, renting, price, location ya site visit ke baare mein pooch sakte hain." },
+        { patterns: ["what can i ask", "kya pooch sakta", "help topics"], answer: "Aap property buy/sell/rent, budget, property type, site visit, documents aur location-related questions pooch sakte hain." },
+        { patterns: ["not helpful", "wrong answer", "answer wrong"], answer: "Maaf kijiye. Main sirf predefined FAQs ka jawab deta hoon. Apna question thoda detail mein likhein ya enquiry form use karein." },
+        { patterns: ["good night", "good afternoon", "greetings"], answer: "Namaste! Mahalaxmi Builders chatbot mein aapka swagat hai. Aapki property requirement kya hai?" }
+    ];
 
-	    enquiryForm.addEventListener("submit", async function(event) {
-	        event.preventDefault();
+    function normalizeText(text) {
+        return text
+            .toLowerCase()
+            .replace(/(\d+)\s*(bhk|bedroom)\b/g, "$1 $2")
+            .replace(/[^a-z0-9\s]/g, " ")
+            .replace(/\s+/g, " ")
+            .trim();
+    }
 
-	        const enquiry = {
-	            name: document.getElementById("customerName").value,
-	            phone: document.getElementById("customerPhone").value,
-	            email: document.getElementById("customerEmail").value,
-	            message: document.getElementById("customerMessage").value
-	        };
+    function editDistance(a, b) {
+        const row = Array.from({ length: b.length + 1 }, (_, i) => i);
+        for (let i = 1; i <= a.length; i++) {
+            let diagonal = row[0];
+            row[0] = i;
+            for (let j = 1; j <= b.length; j++) {
+                const old = row[j];
+                row[j] = Math.min(
+                    row[j] + 1,
+                    row[j - 1] + 1,
+                    diagonal + (a[i - 1] === b[j - 1] ? 0 : 1)
+                );
+                diagonal = old;
+            }
+        }
+        return row[b.length];
+    }
 
-	        try {
-	            const response = await fetch("/api/enquiries", {
-	                method: "POST",
-	                headers: {
-	                    "Content-Type": "application/json"
-	                },
-	                body: JSON.stringify(enquiry)
-	            });
+    function similarWord(a, b) {
+        if (a === b) return true;
+        if (Math.min(a.length, b.length) < 4) return false;
+        const maxDistance = Math.max(a.length, b.length) >= 8 ? 2 : 1;
+        return editDistance(a, b) <= maxDistance;
+    }
 
-	            if (!response.ok) {
-	                throw new Error("Enquiry submission failed");
-	            }
+    function matchesPattern(question, pattern) {
+        const q = normalizeText(question);
+        const p = normalizeText(pattern);
+        if (!q || !p) return false;
+        if (q.includes(p)) return true;
 
-	            alert("Thank you! Your enquiry has been submitted successfully.");
-	            enquiryForm.reset();
+        const qWords = q.split(" ");
+        const pWords = p.split(" ");
+        let matched = 0;
 
-	        } catch (error) {
-	            alert("Sorry, we could not submit your enquiry. Please try again.");
-	            console.error(error);
-	        }
-	    });
-	</script>
-	</body>
-	</html>
+        for (const word of pWords) {
+            if (qWords.some(qWord => similarWord(qWord, word))) matched++;
+        }
 
+        const required = pWords.length <= 2 ? pWords.length : pWords.length - 1;
+        return matched >= required;
+    }
+
+    function getBotAnswer(question) {
+        const normalizedQuestion = normalizeText(question);
+        if (!normalizedQuestion) {
+            return "Kripya apna question type karein.";
+        }
+
+        // Match more specific patterns before short/general patterns.
+        let bestFaq = null;
+        let bestScore = 0;
+
+        for (const faq of faqs) {
+            for (const pattern of faq.patterns) {
+                if (matchesPattern(normalizedQuestion, pattern)) {
+                    const score = normalizeText(pattern).length;
+                    if (score > bestScore) {
+                        bestScore = score;
+                        bestFaq = faq;
+                    }
+                }
+            }
+        }
+
+        if (bestFaq) return bestFaq.answer;
+
+        return "Maaf kijiye, main is question ka confirmed answer abhi nahi de pa raha. Aap apna question thoda alag tarike se pooch sakte hain, ya website ke enquiry form se hamari team se contact kar sakte hain.";
+    }
+
+    chatForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const question = chatInput.value.trim();
+        if (!question) return;
+
+        addChatMessage(question, "user-message");
+        addChatMessage(getBotAnswer(question), "bot-message");
+
+        chatInput.value = "";
+        chatInput.focus();
+    });
+    </script>
 </body>
 </html>
