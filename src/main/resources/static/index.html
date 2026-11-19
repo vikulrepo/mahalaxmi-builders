@@ -331,6 +331,36 @@
         return matched >= required;
     }
 
+    // Intent classification v1: simple rule-based categories, not an ML model.
+    // Detect what the visitor wants before falling back to the existing FAQ matcher.
+    function classifyIntent(question) {
+        const q = normalizeText(question);
+        const has = (...terms) => terms.some(term => q.includes(normalizeText(term)));
+
+        if (has("hello", "hi", "hey", "namaste", "good morning", "good evening")) {
+            return { name: "GREETING", answer: "Namaste! Aap property buy karna, sell karna, rent par lena, ya kisi property ke baare mein poochna chahte hain?" };
+        }
+        if (has("agent se baat", "human agent", "talk to person", "real person", "customer support", "call me", "callback", "contact number", "phone number", "whatsapp")) {
+            return { name: "CONTACT_AGENT", answer: "Main aapki callback request note karne mein madad kar sakta hoon. Website ke enquiry form mein apna naam, phone number aur requirement submit karein. Verified contact details abhi chatbot mein configured nahi hain." };
+        }
+        if (has("site visit", "property dekhni", "site dekhna", "visit book", "visit schedule", "ghar dekhna")) {
+            return { name: "SCHEDULE_VISIT", answer: "Site visit ke liye aap kis area mein property dekhna chahte hain, property type kya hai, aur kaunsi date convenient hai? Visit availability team se confirm hogi." };
+        }
+        if (has("sell property", "sell my house", "property bech", "ghar bech", "flat sell", "bechna hai", "apni property rent par dena")) {
+            return { name: "SELL_PROPERTY", answer: "Property sell karne ke liye property ka area/locality, type (flat, plot, house), size aur expected price batayein. Team se valuation aur selling process confirm karna hoga." };
+        }
+        if (has("rent pe", "rent par", "kiraye par", "kiraye ka", "for rent", "on rent", "rental property", "flat rent", "ghar rent", "lease par")) {
+            return { name: "RENT_PROPERTY", answer: "Aap rent par property dhoondh rahe hain. Ghaziabad mein preferred area, monthly budget, property type/BHK aur move-in date batayein. Current availability abhi verify karni hogi." };
+        }
+        if (has("buy property", "buy a flat", "property kharid", "ghar kharid", "flat lena", "ghar lena", "purchase property", "kharidna hai")) {
+            return { name: "BUY_PROPERTY", answer: "Zaroor! Property kharidne ke liye apna approximate budget, Ghaziabad mein preferred locality, aur property type (flat, plot, independent house) batayein." };
+        }
+        if (has("available property", "properties available", "property options", "property dikh", "kya property hai", "property in ghaziabad", "ghaziabad mein property", "flat options", "plot options")) {
+            return { name: "SEARCH_PROPERTY", answer: "Suitable options dhoondhne ke liye preferred locality, budget aur property type/BHK batayein. Mere paas abhi live property listing database connected nahi hai, isliye availability team se verify karni hogi." };
+        }
+        return null;
+    }
+
     function getBotAnswer(question) {
         const normalizedQuestion = normalizeText(question);
         if (!normalizedQuestion) {
@@ -364,7 +394,9 @@
         if (!question) return;
 
         addChatMessage(question, "user-message");
-        addChatMessage(getBotAnswer(question), "bot-message");
+        const intentResult = classifyIntent(question);
+        const answer = intentResult ? intentResult.answer : getBotAnswer(question);
+        addChatMessage(answer, "bot-message");
 
         chatInput.value = "";
         chatInput.focus();
